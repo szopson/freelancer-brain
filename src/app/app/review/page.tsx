@@ -67,7 +67,7 @@ export default async function ReviewPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <ThumbsUp className="size-4 text-green-600" /> Co idzie dobrze
+                <ThumbsUp className="size-4 text-green-400" /> Co idzie dobrze
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -98,7 +98,7 @@ export default async function ReviewPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <PauseCircle className="size-4 text-amber-600" /> Co stoi
+                <PauseCircle className="size-4 text-amber-400" /> Co stoi
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -109,7 +109,7 @@ export default async function ReviewPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Banknote className="size-4 text-green-700" /> Kasa do zebrania
+                <Banknote className="size-4 text-green-400" /> Kasa do zebrania
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -120,7 +120,7 @@ export default async function ReviewPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 text-base">
-                <TriangleAlert className="size-4 text-red-600" /> Ryzyko
+                <TriangleAlert className="size-4 text-red-400" /> Ryzyko
               </CardTitle>
             </CardHeader>
             <CardContent>

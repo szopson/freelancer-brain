@@ -361,7 +361,7 @@ export function OnboardingWizard({ seedFiles }: { seedFiles: string[] }) {
                     <span className="font-mono text-xs">
                       {p.replace("inbox/", "")}
                     </span>
-                    <CheckCircle2 className="size-3.5 text-green-600" />
+                    <CheckCircle2 className="size-3.5 text-green-400" />
                   </li>
                 ))}
               </ul>
@@ -402,9 +402,9 @@ export function OnboardingWizard({ seedFiles }: { seedFiles: string[] }) {
                     <Loader2 className="size-4 animate-spin text-primary" />
                   )}
                   {f.state === "done" && (
-                    <CheckCircle2 className="size-4 text-green-600" />
+                    <CheckCircle2 className="size-4 text-green-400" />
                   )}
-                  {f.state === "error" && <X className="size-4 text-red-600" />}
+                  {f.state === "error" && <X className="size-4 text-red-400" />}
                   <span className="font-mono text-xs">
                     {f.path.replace("inbox/", "")}
                   </span>
@@ -425,7 +425,7 @@ export function OnboardingWizard({ seedFiles }: { seedFiles: string[] }) {
             {built && (
               <div className="space-y-4 rounded-lg border bg-muted/40 p-4 text-sm">
                 <p className="flex items-center gap-2 font-medium">
-                  <CheckCircle2 className="size-4 text-green-600" />
+                  <CheckCircle2 className="size-4 text-green-400" />
                   Mózg zbudowany.
                   {lintCount !== null &&
                     ` Open Loops Detector znalazł ${lintCount} otwartych pętli.`}

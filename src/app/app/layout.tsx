@@ -12,7 +12,7 @@ export default function AppLayout({
     <SidebarProvider>
       <AppSidebar />
       <main className="flex flex-1 flex-col min-w-0">
-        <header className="flex h-14 shrink-0 items-center gap-3 border-b px-4">
+        <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-3 border-b border-white/5 bg-background/70 px-4 backdrop-blur-xl">
           <SidebarTrigger />
           <Separator orientation="vertical" className="h-5" />
           <div className="hidden sm:flex items-center gap-2 text-xs text-muted-foreground">

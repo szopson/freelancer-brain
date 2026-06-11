@@ -43,3 +43,6 @@ next-env.d.ts
 # Demo runtime state (poza seedem)
 data/meta/
 /tmp
+
+# Playwright MCP artifacts
+.playwright-mcp/

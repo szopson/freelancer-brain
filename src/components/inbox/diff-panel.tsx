@@ -26,7 +26,7 @@ export function DiffPanel({ result }: { result: IngestResult }) {
           <div key={c.client_id} className="rounded-lg border bg-background p-3">
             <div className="mb-2 flex flex-wrap items-center gap-2">
               {c.created ? (
-                <FilePlus2 className="size-4 text-green-600" />
+                <FilePlus2 className="size-4 text-green-400" />
               ) : (
                 <FileEdit className="size-4 text-muted-foreground" />
               )}
@@ -52,19 +52,19 @@ export function DiffPanel({ result }: { result: IngestResult }) {
             <ul className="space-y-1">
               {c.claims_added.map((claim, i) => (
                 <li key={i} className="flex gap-2 text-muted-foreground">
-                  <span className="text-green-600">+</span>
+                  <span className="text-green-400">+</span>
                   <span>{claim.text}</span>
                 </li>
               ))}
               {c.frontmatter_changes.map((ch, i) => (
                 <li key={`fm-${i}`} className="flex gap-2 text-muted-foreground">
-                  <span className="text-sky-600">~</span>
+                  <span className="text-sky-400">~</span>
                   <span>{ch}</span>
                 </li>
               ))}
               {c.contradictions.map((con, i) => (
                 <li key={`con-${i}`} className="flex gap-2">
-                  <TriangleAlert className="mt-0.5 size-3.5 shrink-0 text-amber-600" />
+                  <TriangleAlert className="mt-0.5 size-3.5 shrink-0 text-amber-400" />
                   <span className="text-amber-700 dark:text-amber-400">
                     Sprzeczność: „{con.existing_text}” vs „{con.new_text}” —
                     oznaczone, nie nadpisane

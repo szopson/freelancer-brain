@@ -40,7 +40,9 @@ export function AppSidebar() {
       <SidebarHeader>
         <Link href="/" className="flex items-center gap-2 px-2 py-1.5">
           <Brain className="size-5 text-primary" />
-          <span className="font-semibold tracking-tight">FreelancerBrain</span>
+          <span className="font-semibold tracking-tight gradient-text">
+            FreelancerBrain
+          </span>
           <Badge variant="secondary" className="ml-auto text-[10px]">
             LIGHT
           </Badge>

@@ -139,7 +139,7 @@ export default async function BriefPage() {
             <Card className="border-amber-500/30">
               <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2 text-base">
-                  <TriangleAlert className="size-4 text-amber-600" />
+                  <TriangleAlert className="size-4 text-amber-400" />
                   Ryzyko
                 </CardTitle>
               </CardHeader>
