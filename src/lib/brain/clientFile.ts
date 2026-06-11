@@ -15,7 +15,15 @@ function asDateString(v: unknown): string | undefined {
 }
 
 export function parseClientFile(raw: string, fallbackId: string): ClientProfile {
-  const { data, content } = matter(raw);
+  // Uszkodzony frontmatter nie może wywrócić całego mózgu — czytamy,
+  // co się da, resztę odbuduje kolejny ingest.
+  let data: Record<string, unknown> = {};
+  let content = raw;
+  try {
+    ({ data, content } = matter(raw));
+  } catch {
+    content = raw.replace(/^---[\s\S]*?---/, "");
+  }
   const fm: ClientFrontmatter = {
     id: String(data.id ?? fallbackId),
     name: String(data.name ?? fallbackId),
@@ -57,15 +65,21 @@ export function parseClientFile(raw: string, fallbackId: string): ClientProfile 
   return { frontmatter: fm, claims, history, contradictions, raw };
 }
 
+// Wartości tekstowe mogą zawierać dwukropki/cudzysłowy — zawsze cytujemy,
+// inaczej gray-matter wywróci się przy ponownym odczycie.
+function yamlQuote(value: string): string {
+  return `"${value.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
+}
+
 export function serializeClientFile(profile: ClientProfile): string {
   const fm = profile.frontmatter;
   const fmLines = [
     "---",
     `id: ${fm.id}`,
-    `name: ${fm.name}`,
+    `name: ${yamlQuote(fm.name)}`,
     `status: ${fm.status}`,
-    ...(fm.rate_agreed ? [`rate_agreed: ${fm.rate_agreed}`] : []),
-    ...(fm.next_action ? [`next_action: ${fm.next_action}`] : []),
+    ...(fm.rate_agreed ? [`rate_agreed: ${yamlQuote(fm.rate_agreed)}`] : []),
+    ...(fm.next_action ? [`next_action: ${yamlQuote(fm.next_action)}`] : []),
     `lifecycle: ${fm.lifecycle}`,
     ...(fm.last_contact ? [`last_contact: ${fm.last_contact}`] : []),
     "---",
