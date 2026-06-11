@@ -1,4 +1,4 @@
-import { put, del, list } from "@vercel/blob";
+import { del, list, put } from "@vercel/blob";
 import type { Storage } from "./types";
 
 // Wspólny prefix wszystkich plików demo w Blob store.
@@ -11,18 +11,30 @@ function key(logicalPath: string): string {
   return PREFIX + logicalPath;
 }
 
-async function findUrl(logicalPath: string): Promise<string | null> {
-  const { blobs } = await list({ prefix: key(logicalPath), limit: 1 });
-  const exact = blobs.find((b) => b.pathname === key(logicalPath));
-  return exact?.url ?? null;
+// Z addRandomSuffix:false adres blobu jest deterministyczny — budujemy go
+// z id store'a zaszytego w tokenie, zamiast polegać na list(), który jest
+// eventually consistent (świeży zapis potrafi nie być widoczny sekundami).
+function storeBaseUrl(): string {
+  const token = process.env.BLOB_READ_WRITE_TOKEN ?? "";
+  const m = token.match(/^vercel_blob_rw_([A-Za-z0-9]+)_/);
+  if (!m) throw new Error("Brak poprawnego BLOB_READ_WRITE_TOKEN.");
+  return `https://${m[1].toLowerCase()}.public.blob.vercel-storage.com`;
+}
+
+function blobUrl(logicalPath: string): string {
+  return `${storeBaseUrl()}/${key(logicalPath)}`;
 }
 
 export class BlobStorage implements Storage {
   async readFile(logicalPath: string): Promise<string | null> {
-    const url = await findUrl(logicalPath);
-    if (!url) return null;
-    const res = await fetch(url, { cache: "no-store" });
-    if (!res.ok) return null;
+    // Parametr ts omija cache CDN — wiki musi czytać własne świeże zapisy.
+    const res = await fetch(`${blobUrl(logicalPath)}?ts=${Date.now()}`, {
+      cache: "no-store",
+    });
+    if (res.status === 404 || res.status === 403) return null;
+    if (!res.ok) {
+      throw new Error(`Blob read ${logicalPath}: HTTP ${res.status}`);
+    }
     return res.text();
   }
 
@@ -32,6 +44,7 @@ export class BlobStorage implements Storage {
       addRandomSuffix: false,
       allowOverwrite: true,
       contentType: "text/plain; charset=utf-8",
+      cacheControlMaxAge: 60, // minimum dla public blob — i tak busujemy ?ts
     });
   }
 
@@ -53,8 +66,7 @@ export class BlobStorage implements Storage {
   }
 
   async deleteFile(logicalPath: string): Promise<void> {
-    const url = await findUrl(logicalPath);
-    if (url) await del(url);
+    await del(blobUrl(logicalPath));
   }
 
   async deletePrefix(prefix: string): Promise<void> {
