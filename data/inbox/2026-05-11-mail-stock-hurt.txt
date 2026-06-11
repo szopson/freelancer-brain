@@ -1,0 +1,20 @@
+Od: Robert Sikora <r.sikora@stockhurt.pl>
+Do: Marek <marek@konsulting-ops.pl>
+Data: 11.05.2026, 16:20
+Temat: RE: Podsumowanie warsztatu + następne kroki
+
+Marek,
+
+dzięki za sprawne poprowadzenie warsztatu z zespołem magazynu. Notatki, które
+przysłałeś, są ok.
+
+Co do kontynuacji (etap 2 — optymalizacja pickingu): muszę to przegadać ze
+wspólnikiem, bo budżety na H2 dopiero układamy. Wrócę do Ciebie najpóźniej
+za dwa tygodnie.
+
+Gdybyś miał w międzyczasie jakiś szkic, jak by taki etap 2 wyglądał
+(zakres + widełki), to by nam pomogło w rozmowie.
+
+Pozdrawiam,
+Robert Sikora
+Stock-Hurt Sp. j.
